@@ -1,178 +1,94 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Locket Gold Vĩnh Viễn</title>
+<title>LocketGold Chum</title>
 
 <style>
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #fff9fb;
-  color: #333;
+  background: #fff5f8;
+  text-align: center;
 }
 
+/* HEADER */
 .header {
-  text-align: center;
-  padding: 35px 15px;
-  background: linear-gradient(135deg, #fff, #fff0f6);
+  background: linear-gradient(135deg,#ff4d88,#d4a017);
+  padding: 40px 20px;
+  color: white;
 }
 
 .header h1 {
   margin: 0;
-  font-size: 30px;
-  color: #d4a017;
+  font-size: 28px;
 }
 
-.sub {
-  font-size: 14px;
-  color: #666;
-  margin-top: 8px;
-}
-
-.tiktok-box a {
-  color: #e91e63;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.container {
-  padding: 20px;
-}
-
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 14px;
-  margin-bottom: 18px;
-  box-shadow: 0 6px 15px rgba(233, 30, 99, 0.08);
-  border: 1px solid #ffe0ec;
-}
-
-.card h2 {
-  margin: 0 0 8px;
-  color: #d4a017;
-}
-
-.price {
-  font-size: 22px;
-  font-weight: bold;
-  color: #e91e63;
-  margin-bottom: 15px;
-}
-
-button {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #ff66a3, #d4a017);
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 15px;
-}
-
-button:hover {
-  opacity: 0.9;
-}
-
-.order-form {
-  background: white;
-  margin: 20px;
-  padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 6px 15px rgba(233, 30, 99, 0.08);
-  display: none;
-  border: 1px solid #ffe0ec;
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 12px;
-  border-radius: 8px;
-  border: 1px solid #ffc1d6;
-  outline: none;
-}
-
-.qr-box {
-  text-align: center;
-  margin-top: 15px;
-}
-
-.qr-box img {
-  width: 200px;
+.header p {
   margin-top: 10px;
 }
 
+/* FEATURES – đặt ngay đầu */
 .features {
   background: white;
-  padding: 25px;
-  margin-top: 20px;
-  text-align: center;
-  border-top: 2px solid #ffe0ec;
+  padding: 30px 20px;
+  border-top: 4px solid #d4a017;
+  border-bottom: 4px solid #d4a017;
 }
 
-.footer {
-  text-align: center;
-  padding: 20px;
-  color: #999;
-  font-size: 13px;
-}
-.features {
-  background: linear-gradient(135deg, #fff7fb, #fff0f6);
-  padding: 30px 20px;
-  text-align: center;
-  border-top: 3px solid #d4a017;
-  border-bottom: 3px solid #d4a017;
-  box-shadow: 0 6px 18px rgba(212,160,23,0.15);
+.features h2 {
+  color: #d4a017;
+  margin-bottom: 20px;
 }
 
 .features p {
   margin: 8px 0;
-  font-size: 15px;
+  font-size: 16px;
   color: #444;
-}  
+}
+
+/* CARD GIÁ */
+.container {
+  padding: 30px 20px;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  margin: 20px auto;
+  border-radius: 15px;
+  max-width: 320px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.price {
+  font-size: 24px;
+  color: #e91e63;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.button {
+  display: inline-block;
+  padding: 12px 25px;
+  background: linear-gradient(135deg,#ff4d88,#d4a017);
+  color: white;
+  border-radius: 25px;
+  text-decoration: none;
+  margin-top: 10px;
+}
 </style>
 </head>
 
 <body>
 
 <div class="header">
-  <h1>Locket Gold Vĩnh Viễn</h1>
-  <div class="sub">
-    Không đụng iCloud • Bảo hành vĩnh viễn • Kích hoạt nhanh
-  </div>
-  <div class="tiktok-box">
-    TikTok:
-    <a href="https://www.tiktok.com/@_ngtr193" target="_blank">
-      @_ngtr193
-    </a>
-  </div>
-</div>
-
-<div class="container">
-
-  <div class="card">
-    <h2>iOS - Bật VPN</h2>
-    <div class="price">30.000đ</div>
-    <button onclick="showForm('iOS - Bật VPN',30000)">Mua ngay</button>
-  </div>
-
-  <div class="card">
-    <h2>iOS - Tắt VPN</h2>
-    <div class="price">40.000đ</div>
-    <button onclick="showForm('iOS - Tắt VPN',40000)">Mua ngay</button>
-  </div>
+  <h1>LocketGold Chum</h1>
+  <p>Uy tín – Bảo hành – Gold vĩnh viễn</p>
 </div>
 
 <div class="features">
-  <h3 style="color:#d4a017; margin-bottom:15px; font-size:20px;">
-    ✨ Tính năng Locket Gold bao gồm:
-  </h3>
-
+  <h2>✨ Tính năng Locket Gold bao gồm:</h2>
   <p>🚫 Không có quảng cáo</p>
   <p>🎦 Quay Video ngắn</p>
   <p>👀 Xem ai đã truy cập Locket của mình</p>
@@ -183,82 +99,20 @@ input {
 </div>
 
 <div class="container">
+
   <div class="card">
-    <h2>Android</h2>
-    <div class="price">20.000đ</div>
-    <button onclick="showForm('Android',20000)">Mua ngay</button>
+    <h3>iOS - Tắt VPN</h3>
+    <div class="price">40.000đ</div>
+    <a class="button" href="https://zalo.me/0346658742">Mua ngay</a>
+  </div>
+
+  <div class="card">
+    <h3>Android</h3>
+    <div class="price">30.000đ</div>
+    <a class="button" href="https://zalo.me/0346658742">Mua ngay</a>
   </div>
 
 </div>
-
-<div class="order-form" id="orderForm">
-  <h3>Thông tin khách hàng</h3>
-  <input type="text" id="name" placeholder="Nhập tên của bạn">
-  <input type="text" id="phone" placeholder="Nhập số điện thoại (10 số)">
-  <button onclick="submitOrder()">Tạo mã & Thanh toán</button>
-
-  <div class="qr-box" id="qrBox" style="display:none;">
-    <p><strong>Quét mã để thanh toán</strong></p>
-    <img id="qrImage" src="">
-    <p id="orderInfo"></p>
-  </div>
-</div>
-
-<div class="features">
-  <p>✔ Lên Gold vĩnh viễn</p>
-  <p>✔ Không liên quan iCloud</p>
-  <p>✔ Bảo hành vĩnh viễn</p>
-  <p>✔ Hỗ trợ Zalo: 0346658742</p>
-</div>
-
-<div class="footer">
-  © 2026 Locket Gold | TikTok @_ngtr193
-</div>
-
-<script>
-let selectedProduct = "";
-let selectedPrice = 0;
-
-function generateOrderId() {
-  return "ORD" + Date.now();
-}
-
-function showForm(product, price) {
-  selectedProduct = product;
-  selectedPrice = price;
-  document.getElementById("orderForm").style.display = "block";
-  window.scrollTo(0, document.body.scrollHeight);
-}
-
-function submitOrder() {
-  const name = document.getElementById("name").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-
-  if (!name || !phone) {
-    alert("Vui lòng nhập đầy đủ thông tin.");
-    return;
-  }
-
-  const phoneRegex = /^(0[3|5|7|8|9])[0-9]{8}$/;
-  if (!phoneRegex.test(phone)) {
-    alert("Số điện thoại không hợp lệ.");
-    return;
-  }
-
-  const orderId = generateOrderId();
-  const content = phone;
-
-  const qrUrl = `https://img.vietqr.io/image/momo-0346658742-compact.png?amount=${selectedPrice}&addInfo=${content}`;
-
-  document.getElementById("qrImage").src = qrUrl;
-  document.getElementById("qrBox").style.display = "block";
-  document.getElementById("orderInfo").innerHTML =
-    "Mã đơn: " + orderId + "<br>" +
-    "Số tiền: " + selectedPrice.toLocaleString() + "đ<br>" +
-    "Nội dung: " + content + "<br><br>" +
-    "Sau khi chuyển khoản xong, vui lòng đợi admin liên hệ.";
-}
-</script>
 
 </body>
 </html>
