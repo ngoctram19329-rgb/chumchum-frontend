@@ -9,24 +9,26 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#000,#111);
-  color: white;
+  background: #f4f6f9;
+  color: #333;
 }
 
 .header {
   text-align: center;
-  padding: 30px 20px;
+  padding: 30px 15px;
+  background: white;
 }
 
 .header h1 {
-  font-size: 32px;
-  color: gold;
-  margin-bottom: 10px;
+  margin: 0;
+  font-size: 28px;
+  color: #b88a00;
 }
 
 .sub {
-  color: #ccc;
   font-size: 14px;
+  color: #666;
+  margin-top: 8px;
 }
 
 .container {
@@ -34,20 +36,20 @@ body {
 }
 
 .card {
-  background: #1a1a1a;
-  border: 1px solid gold;
-  border-radius: 12px;
+  background: white;
   padding: 20px;
-  margin-bottom: 20px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
 .card h2 {
-  margin: 0 0 10px;
-  color: gold;
+  margin: 0 0 8px;
+  color: #b88a00;
 }
 
 .price {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
   margin-bottom: 15px;
 }
@@ -57,26 +59,53 @@ button {
   padding: 12px;
   border: none;
   border-radius: 8px;
-  background: gold;
+  background: #b88a00;
+  color: white;
   font-weight: bold;
   cursor: pointer;
 }
 
-.features {
+button:hover {
+  opacity: 0.9;
+}
+
+.order-form {
+  background: white;
+  margin: 20px;
   padding: 20px;
-  border-top: 1px solid #333;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  display: none;
+}
+
+.order-form h3 {
+  margin-top: 0;
+  color: #b88a00;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.features {
+  background: white;
+  padding: 20px;
+  margin-top: 20px;
 }
 
 .features p {
   margin: 6px 0;
-  color: #ccc;
+  color: #555;
 }
 
 .footer {
   text-align: center;
   padding: 20px;
-  border-top: 1px solid #333;
-  color: #aaa;
+  color: #888;
 }
 </style>
 </head>
@@ -85,7 +114,9 @@ button {
 
 <div class="header">
   <h1>Locket Gold Vĩnh Viễn</h1>
-  <div class="sub">Không đụng iCloud • Bảo hành trọn đời • Kích hoạt nhanh</div>
+  <div class="sub">
+    Không đụng iCloud • Bảo hành vĩnh viễn • Kích hoạt nhanh
+  </div>
 </div>
 
 <div class="container">
@@ -93,21 +124,28 @@ button {
   <div class="card">
     <h2>iOS - Bật VPN</h2>
     <div class="price">30.000đ</div>
-    <button onclick="order('iOS - Bật VPN 30K')">Mua ngay</button>
+    <button onclick="showForm('iOS - Bật VPN 30K')">Mua ngay</button>
   </div>
 
   <div class="card">
     <h2>iOS - Tắt VPN</h2>
     <div class="price">40.000đ</div>
-    <button onclick="order('iOS - Tắt VPN 40K')">Mua ngay</button>
+    <button onclick="showForm('iOS - Tắt VPN 40K')">Mua ngay</button>
   </div>
 
   <div class="card">
     <h2>Android</h2>
     <div class="price">20.000đ</div>
-    <button onclick="order('Android 20K')">Mua ngay</button>
+    <button onclick="showForm('Android 20K')">Mua ngay</button>
   </div>
 
+</div>
+
+<div class="order-form" id="orderForm">
+  <h3>Thông tin khách hàng</h3>
+  <input type="text" id="name" placeholder="Nhập tên của bạn">
+  <input type="text" id="phone" placeholder="Nhập số điện thoại (10 số)">
+  <button onclick="submitOrder()">Xác nhận & Thanh toán</button>
 </div>
 
 <div class="features">
@@ -122,16 +160,31 @@ button {
 </div>
 
 <script>
-function order(product) {
-  const name = prompt("Nhập tên của bạn:");
-  const phone = prompt("Nhập số điện thoại:");
+let selectedProduct = "";
+
+function showForm(product) {
+  selectedProduct = product;
+  document.getElementById("orderForm").style.display = "block";
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+function submitOrder() {
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
 
   if (!name || !phone) {
-    alert("Vui lòng nhập đầy đủ thông tin");
+    alert("Vui lòng nhập đầy đủ thông tin.");
     return;
   }
 
-  const content = phone + " GOLD";
+  const phoneRegex = /^(0[3|5|7|8|9])[0-9]{8}$/;
+
+  if (!phoneRegex.test(phone)) {
+    alert("Số điện thoại không hợp lệ. Vui lòng nhập đúng 10 số.");
+    return;
+  }
+
+  const content = phone;
 
   alert(
     "THANH TOÁN TRƯỚC QUA MOMO\n\n" +
@@ -149,12 +202,15 @@ function order(product) {
     body: JSON.stringify({
       name: name,
       phone: phone,
-      product: product,
+      product: selectedProduct,
       status: "cho_duyet"
     })
   })
   .then(() => {
     alert("Đơn hàng đã được ghi nhận. Admin sẽ liên hệ sau khi xác nhận thanh toán.");
+  })
+  .catch(() => {
+    alert("Có lỗi xảy ra. Vui lòng thử lại.");
   });
 }
 </script>
