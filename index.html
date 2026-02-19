@@ -255,19 +255,14 @@ window.submitOrder = async function() {
 };
 </script>
   <script>
-let selectedProduct = "";
-let selectedPrice = 0;
-
-function showForm(product, price) {
-  selectedProduct = product;
-  selectedPrice = price;
+window.showForm = function(product, price) {
   const form = document.getElementById("orderForm");
   if (form) {
     form.style.display = "block";
   }
-}
+};
 
-function submitOrder() {
+window.submitOrder = function() {
   const name = document.getElementById("name").value;
   const phone = document.getElementById("phone").value;
 
@@ -276,8 +271,8 @@ function submitOrder() {
     return;
   }
 
-  alert("Form hoạt động bình thường");
-}
+  alert("Submit chạy");
+};
 </script>
 </body>
 </html>
