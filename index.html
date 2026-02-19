@@ -255,24 +255,14 @@ window.submitOrder = async function() {
 };
 </script>
   <script>
-window.showForm = function(product, price) {
-  const form = document.getElementById("orderForm");
-  if (form) {
+function toggleForm(id) {
+  const form = document.getElementById(id);
+  if (form.style.display === "none") {
     form.style.display = "block";
+  } else {
+    form.style.display = "none";
   }
-};
-
-window.submitOrder = function() {
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-
-  if (!name || !phone) {
-    alert("Nhập đủ thông tin");
-    return;
-  }
-
-  alert("Submit chạy");
-};
+}
 </script>
 </body>
 </html>
