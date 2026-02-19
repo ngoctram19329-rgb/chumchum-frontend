@@ -152,25 +152,25 @@ input {
   <div class="card">
     <h2>Thuê id apple tải Shadowrocket</h2>
     <div class="price">10.000đ</div>
-    <button onclick="showForm('Thuê id apple tải Shadowrocket',10000)">Mua ngay</button>
+    <button onclick="showForm('Thuê id apple tải Shadowrocket',10000,this)">Mua ngay</button>
   </div>
 
   <div class="card">
     <h2>iOS - Bật VPN</h2>
     <div class="price">30.000đ</div>
-    <button onclick="showForm('iOS - Bật VPN',30000)">Mua ngay</button>
+    <button onclick="showForm('iOS - Bật VPN',30000,this)">Mua ngay</button>
   </div>
 
   <div class="card">
     <h2>iOS - Tắt VPN</h2>
     <div class="price">40.000đ</div>
-    <button onclick="showForm('iOS - Tắt VPN',40000)">Mua ngay</button>
+    <button onclick="showForm('iOS - Tắt VPN',40000,this)">Mua ngay</button>
   </div>
 
   <div class="card">
     <h2>Android</h2>
     <div class="price">20.000đ</div>
-    <button onclick="showForm('Android',20000)">Mua ngay</button>
+    <button onclick="showForm('Android',20000,this)">Mua ngay</button>
   </div>
 
 </div>
@@ -235,11 +235,15 @@ function generateOrderId() {
   return "ORD" + Date.now();
 }
 
-function showForm(product, price) {
+function showForm(product, price, buttonElement) {
   selectedProduct = product;
   selectedPrice = price;
-  document.getElementById("orderForm").style.display = "block";
-  window.scrollTo(0, document.body.scrollHeight);
+
+  const form = document.getElementById("orderForm");
+  const card = buttonElement.closest(".card");
+
+  card.appendChild(form);
+  form.style.display = "block";
 }
 
 function submitOrder() {
