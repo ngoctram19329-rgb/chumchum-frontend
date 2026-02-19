@@ -228,19 +228,21 @@ input {
 </div>
 
 <script>
-<script>
-window.onload = function() {
-
 let selectedProduct = "";
 let selectedPrice = 0;
 
-window.showForm = function(product, price) {
+function generateOrderId() {
+  return "ORD" + Date.now();
+}
+
+function showForm(product, price) {
   selectedProduct = product;
   selectedPrice = price;
   document.getElementById("orderForm").style.display = "block";
-};
+  window.scrollTo(0, document.body.scrollHeight);
+}
 
-window.submitOrder = async function() {
+function submitOrder() {
   const name = document.getElementById("name").value.trim();
   const phone = document.getElementById("phone").value.trim();
 
@@ -249,20 +251,26 @@ window.submitOrder = async function() {
     return;
   }
 
-  alert("Form hoạt động bình thường");
-};
-
-};
-</script>
-  <script>
-function toggleForm(id) {
-  const form = document.getElementById(id);
-  if (form.style.display === "none") {
-    form.style.display = "block";
-  } else {
-    form.style.display = "none";
+  const phoneRegex = /^(0[3|5|7|8|9])[0-9]{8}$/;
+  if (!phoneRegex.test(phone)) {
+    alert("Số điện thoại không hợp lệ.");
+    return;
   }
+
+  const orderId = generateOrderId();
+  const content = phone;
+
+  const qrUrl = `https://img.vietqr.io/image/momo-0346658742-compact.png?amount=${selectedPrice}&addInfo=${content}`;
+
+  document.getElementById("qrImage").src = qrUrl;
+  document.getElementById("qrBox").style.display = "block";
+  document.getElementById("orderInfo").innerHTML =
+    "Mã đơn: " + orderId + "<br>" +
+    "Số tiền: " + selectedPrice.toLocaleString() + "đ<br>" +
+    "Nội dung: " + content + "<br><br>" +
+    "Sau khi chuyển khoản xong, vui lòng đợi admin liên hệ.";
 }
 </script>
+
 </body>
 </html>
