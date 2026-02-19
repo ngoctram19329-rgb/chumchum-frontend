@@ -243,6 +243,22 @@ function showForm(product, price) {
 }
 
 function submitOrder() {
+  <script>
+let selectedProduct = "";
+let selectedPrice = 0;
+
+function generateOrderId() {
+  return "ORD" + Date.now();
+}
+
+function showForm(product, price) {
+  selectedProduct = product;
+  selectedPrice = price;
+  document.getElementById("orderForm").style.display = "block";
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+async function submitOrder() {
   const name = document.getElementById("name").value.trim();
   const phone = document.getElementById("phone").value.trim();
 
@@ -255,6 +271,36 @@ function submitOrder() {
   if (!phoneRegex.test(phone)) {
     alert("Số điện thoại không hợp lệ.");
     return;
+  }
+
+  const orderId = generateOrderId();
+
+  // GỬI LÊN BACKEND
+  await fetch("https://chumchum-backend.onrender.com/create-order", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      orderId: orderId,
+      name: name,
+      phone: phone,
+      product: selectedProduct,
+      price: selectedPrice
+    })
+  });
+
+  const qrUrl = `https://img.vietqr.io/image/momo-0346658742-compact.png?amount=${selectedPrice}&addInfo=${phone}`;
+
+  document.getElementById("qrImage").src = qrUrl;
+  document.getElementById("qrBox").style.display = "block";
+  document.getElementById("orderInfo").innerHTML =
+    "Mã đơn: " + orderId + "<br>" +
+    "Số tiền: " + selectedPrice.toLocaleString() + "đ<br>" +
+    "Nội dung: " + phone + "<br><br>" +
+    "Sau khi chuyển khoản xong, vui lòng đợi admin liên hệ.";
+}
+</script>
   }
 
   const orderId = generateOrderId();
