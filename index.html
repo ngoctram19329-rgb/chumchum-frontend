@@ -65,10 +65,6 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  opacity: 0.9;
-}
-
 .order-form {
   background: white;
   margin: 20px;
@@ -76,11 +72,6 @@ button:hover {
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   display: none;
-}
-
-.order-form h3 {
-  margin-top: 0;
-  color: #b88a00;
 }
 
 input {
@@ -91,15 +82,20 @@ input {
   border: 1px solid #ccc;
 }
 
+.qr-box {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.qr-box img {
+  width: 200px;
+  margin-top: 10px;
+}
+
 .features {
   background: white;
   padding: 20px;
   margin-top: 20px;
-}
-
-.features p {
-  margin: 6px 0;
-  color: #555;
 }
 
 .footer {
@@ -114,9 +110,7 @@ input {
 
 <div class="header">
   <h1>Locket Gold Vĩnh Viễn</h1>
-  <div class="sub">
-    Không đụng iCloud • Bảo hành vĩnh viễn • Kích hoạt nhanh
-  </div>
+  <div class="sub">Không đụng iCloud • Bảo hành vĩnh viễn • Kích hoạt nhanh</div>
 </div>
 
 <div class="container">
@@ -124,19 +118,19 @@ input {
   <div class="card">
     <h2>iOS - Bật VPN</h2>
     <div class="price">30.000đ</div>
-    <button onclick="showForm('iOS - Bật VPN 30K')">Mua ngay</button>
+    <button onclick="showForm('iOS - Bật VPN',30000)">Mua ngay</button>
   </div>
 
   <div class="card">
     <h2>iOS - Tắt VPN</h2>
     <div class="price">40.000đ</div>
-    <button onclick="showForm('iOS - Tắt VPN 40K')">Mua ngay</button>
+    <button onclick="showForm('iOS - Tắt VPN',40000)">Mua ngay</button>
   </div>
 
   <div class="card">
     <h2>Android</h2>
     <div class="price">20.000đ</div>
-    <button onclick="showForm('Android 20K')">Mua ngay</button>
+    <button onclick="showForm('Android',20000)">Mua ngay</button>
   </div>
 
 </div>
@@ -145,14 +139,20 @@ input {
   <h3>Thông tin khách hàng</h3>
   <input type="text" id="name" placeholder="Nhập tên của bạn">
   <input type="text" id="phone" placeholder="Nhập số điện thoại (10 số)">
-  <button onclick="submitOrder()">Xác nhận & Thanh toán</button>
+  <button onclick="submitOrder()">Tạo mã & Thanh toán</button>
+
+  <div class="qr-box" id="qrBox" style="display:none;">
+    <p><strong>Quét mã để thanh toán</strong></p>
+    <img id="qrImage" src="">
+    <p id="orderInfo"></p>
+  </div>
 </div>
 
 <div class="features">
-  <p>✔ Lên Gold vĩnh viễn</p>
-  <p>✔ Không liên quan iCloud</p>
-  <p>✔ Bảo hành vĩnh viễn</p>
-  <p>✔ Hỗ trợ Zalo: 0346658742</p>
+  ✔ Lên Gold vĩnh viễn<br>
+  ✔ Không liên quan iCloud<br>
+  ✔ Bảo hành vĩnh viễn<br>
+  ✔ Zalo: 0346658742
 </div>
 
 <div class="footer">
@@ -161,9 +161,15 @@ input {
 
 <script>
 let selectedProduct = "";
+let selectedPrice = 0;
 
-function showForm(product) {
+function generateOrderId() {
+  return "ORD" + Date.now();
+}
+
+function showForm(product, price) {
   selectedProduct = product;
+  selectedPrice = price;
   document.getElementById("orderForm").style.display = "block";
   window.scrollTo(0, document.body.scrollHeight);
 }
@@ -178,39 +184,35 @@ function submitOrder() {
   }
 
   const phoneRegex = /^(0[3|5|7|8|9])[0-9]{8}$/;
-
   if (!phoneRegex.test(phone)) {
-    alert("Số điện thoại không hợp lệ. Vui lòng nhập đúng 10 số.");
+    alert("Số điện thoại không hợp lệ.");
     return;
   }
 
+  const orderId = generateOrderId();
   const content = phone;
 
-  alert(
-    "THANH TOÁN TRƯỚC QUA MOMO\n\n" +
-    "Ví MoMo: 0346658742\n" +
-    "Chủ ví: TRAN THI NGOC TRAM\n\n" +
-    "Nội dung chuyển khoản: " + content + "\n\n" +
-    "Sau khi chuyển khoản xong, vui lòng đợi admin liên hệ xác nhận."
-  );
+  const qrUrl = `https://img.vietqr.io/image/momo-0346658742-compact.png?amount=${selectedPrice}&addInfo=${content}`;
+
+  document.getElementById("qrImage").src = qrUrl;
+  document.getElementById("qrBox").style.display = "block";
+  document.getElementById("orderInfo").innerHTML =
+    "Mã đơn: " + orderId + "<br>" +
+    "Số tiền: " + selectedPrice.toLocaleString() + "đ<br>" +
+    "Nội dung: " + content + "<br><br>" +
+    "Sau khi chuyển khoản xong, vui lòng đợi admin liên hệ.";
 
   fetch("https://chumchum-backend.onrender.com/create-order", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
+      orderId: orderId,
       name: name,
       phone: phone,
       product: selectedProduct,
-      status: "cho_duyet"
+      price: selectedPrice,
+      status: "cho_thanh_toan"
     })
-  })
-  .then(() => {
-    alert("Đơn hàng đã được ghi nhận. Admin sẽ liên hệ sau khi xác nhận thanh toán.");
-  })
-  .catch(() => {
-    alert("Có lỗi xảy ra. Vui lòng thử lại.");
   });
 }
 </script>
