@@ -1,0 +1,15 @@
+<h2>Đăng nhập Admin</h2>
+
+<input type="password" id="pass" placeholder="Nhập mật khẩu">
+<button onclick="login()">Đăng nhập</button>
+
+<script>
+function login(){
+  const pass = document.getElementById("pass").value;
+  if(pass === "123456"){
+    window.location.href = "https://chumchum-frontend-1.onrender.com/";
+  } else {
+    alert("Sai mật khẩu");
+  }
+}
+</script>
