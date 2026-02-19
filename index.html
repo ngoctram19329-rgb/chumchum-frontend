@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Locket Gold - Chum Chum</title>
+<style>
+body {
+  font-family: Arial;
+  background: #f5f5f5;
+  text-align: center;
+  padding: 30px;
+}
+.box {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: auto;
+}
+input, button {
+  width: 90%;
+  padding: 10px;
+  margin: 8px 0;
+}
+button {
+  background: gold;
+  border: none;
+  font-weight: bold;
+}
+.qr {
+  margin-top: 20px;
+  background: #fafafa;
+  padding: 15px;
+  border-radius: 8px;
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+<h2>Locket Gold</h2>
+<p>Giá: 199.000đ</p>
+
+<input type="text" id="name" placeholder="Tên của bạn">
+<input type="text" id="phone" placeholder="Số điện thoại">
+
+<button onclick="order()">Đặt hàng</button>
+
+<div class="qr" id="payment" style="display:none;">
+  <h3>Chuyển khoản MoMo</h3>
+  <p>SĐT: 0346658742</p>
+  <p>Tên: TRAN THI NGOC TRAM</p>
+  <p>Nội dung: LocketGold + SĐT</p>
+  <p>Sau khi chuyển khoản, bạn chờ xác nhận nhé.</p>
+</div>
+</div>
+
+<script>
+function order() {
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+
+  if (!name || !phone) {
+    alert("Vui lòng nhập đầy đủ thông tin");
+    return;
+  }
+
+  fetch("https://chumchum-backend.onrender.com/create-order", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      username: name,
+      product: "Locket Gold"
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("payment").style.display = "block";
+  });
+}
+</script>
+
+</body>
+</html>
