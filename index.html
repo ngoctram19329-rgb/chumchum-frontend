@@ -260,19 +260,7 @@ function submitOrder() {
     alert("Số điện thoại không hợp lệ.");
     return;
   }
-fetch("https://chumchum-backend.onrender.com/create-order", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    orderId: orderId,
-    name: name,
-    phone: phone,
-    product: selectedProduct,
-    price: selectedPrice
-  })
-});
+
   const orderId = generateOrderId();
   const content = phone;
 
