@@ -254,6 +254,19 @@ window.submitOrder = async function() {
 
 };
 </script>
+  <script>
+let selectedProduct = "";
+let selectedPrice = 0;
+
+function showForm(product, price) {
+  selectedProduct = product;
+  selectedPrice = price;
+  document.getElementById("orderForm").style.display = "block";
+}
+
+function submitOrder() {
+  alert("Submit hoạt động");
+}
 </script>
 </body>
 </html>
