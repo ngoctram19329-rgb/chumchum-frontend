@@ -310,47 +310,26 @@ function checkStatus() {
   const id = localStorage.getItem("orderId");
   if (!id) return;
 
-  function checkStatus() {
-  const id = localStorage.getItem("orderId");
-  if (!id) return;
-
   fetch(BACKEND + "/status/" + id)
   .then(res => res.json())
   .then(data => {
     if (!data.success) return;
 
     if (data.status === "approved") {
-      document.getElementById("orderInfo").innerHTML +=
-        "<br><br><strong style='color:green;'>ĐƠN ĐÃ ĐƯỢC DUYỆT ✅</strong><br><br>" +
-        "<a href='https://zalo.me/0346658742' target='_blank'>" +
-        "<button style='background:green;color:white;padding:10px;border:none;border-radius:8px;'>Liên hệ nhận hàng</button></a>";
-
       clearInterval(interval);
       localStorage.removeItem("orderId");
-    }
-  });
-}
-  .then(res => res.json())
-  .then(data => {
-    if (!data.success) return;
 
-    if (data.status === "approved") {
-  clearInterval(interval);
-  localStorage.removeItem("orderId");
-
-  // Đợi 1 giây rồi reload trang
-  setTimeout(() => {
-    location.reload();
-  }, 1000);
-}
       document.getElementById("orderInfo").innerHTML +=
-        "<br><br><strong style='color:green;'>ĐƠN ĐÃ ĐƯỢC DUYỆT ✅</strong><br><br>" +
-        "<a href='https://zalo.me/0346658742' target='_blank'>" +
-        "<button style='background:green;color:white;padding:10px;border:none;border-radius:8px;'>Liên hệ nhận hàng</button></a>";
+        "<br><br><strong style='color:green;'>ĐƠN ĐÃ ĐƯỢC DUYỆT ✅</strong>";
 
-      clearInterval(interval);
-      localStorage.removeItem("orderId");
+      // Reload sau 1 giây
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
     }
+  })
+  .catch(() => {
+    console.log("Lỗi check status");
   });
 }
 
@@ -364,6 +343,7 @@ function toggleMenu(){
   menu.style.display = menu.style.display === "none" ? "block" : "none";
 }
 
+// Nếu có đơn đang chờ thì tự check lại
 if (localStorage.getItem("orderId")) {
   startChecking();
 }
