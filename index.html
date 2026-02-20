@@ -249,8 +249,8 @@ function showForm(product, price) {
   const phone = document.getElementById("phone").value.trim();
   let ctvCode = document.getElementById("ctvCode").value.trim().toUpperCase();
 
-  if (!name || !phone) {
-    alert("Vui lòng nhập đầy đủ thông tin.");
+  if (!phone) {
+    alert("Vui lòng nhập số điện thoại.");
     return;
   }
 
@@ -266,31 +266,6 @@ function showForm(product, price) {
 
   const orderId = generateOrderId();
   const content = phone + " " + ctvCode;
-
-  const qrUrl = `https://img.vietqr.io/image/momo-0346658742-compact.png?amount=${selectedPrice}&addInfo=${content}`;
-
-  document.getElementById("qrImage").src = qrUrl;
-  document.getElementById("qrBox").style.display = "block";
-  document.getElementById("orderInfo").innerHTML =
-    "Mã đơn: " + orderId + "<br>" +
-    "Số tiền: " + selectedPrice.toLocaleString() + "đ<br>" +
-    "Nội dung: " + content + "<br><br>" +
-    "Sau khi chuyển khoản xong, vui lòng đợi admin liên hệ.";
-}
-
-  if (!name || !phone) {
-    alert("Vui lòng nhập đầy đủ thông tin.");
-    return;
-  }
-
-  const phoneRegex = /^(0[3|5|7|8|9])[0-9]{8}$/;
-  if (!phoneRegex.test(phone)) {
-    alert("Số điện thoại không hợp lệ.");
-    return;
-  }
-
-  const orderId = generateOrderId();
-  const content = phone;
 
   const qrUrl = `https://img.vietqr.io/image/momo-0346658742-compact.png?amount=${selectedPrice}&addInfo=${content}`;
 
