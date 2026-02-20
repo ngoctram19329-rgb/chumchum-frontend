@@ -2,23 +2,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Admin</title>
+<title>Quản Lý Admin</title>
+
 <style>
 body {
-  font-family: Arial;
-  background: linear-gradient(to bottom, #fff0f5, #ffffff);
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #ffe6f0, #ffffff);
   text-align: center;
   padding-top: 50px;
 }
-h2 { color: #d63384; }
+
+h2 {
+  color: #d63384;
+}
 
 .card {
   background: white;
   padding: 15px;
   margin: 15px auto;
-  width: 300px;
-  border-radius: 12px;
+  width: 320px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
+
 button {
   padding: 8px 15px;
   border-radius: 20px;
@@ -26,17 +32,26 @@ button {
   background: linear-gradient(to right, #ff69b4, #ffc107);
   color: white;
   cursor: pointer;
+  margin-top: 10px;
+}
+
+.logout {
+  margin-bottom: 20px;
 }
 </style>
 </head>
+
 <body>
 
 <h2>Trang Quản Lý Admin</h2>
+
+<button class="logout" onclick="logout()">Đăng xuất</button>
+
 <div id="orders"></div>
 
 <script>
 
-const BACKEND = "https://chum-backend-2.onrender.com";
+const BACKEND = "https://chumchum-backend-2.onrender.com";
 
 function loadOrders() {
   fetch(BACKEND + "/orders")
@@ -45,31 +60,50 @@ function loadOrders() {
       const container = document.getElementById("orders");
       container.innerHTML = "";
 
+      if (data.length === 0) {
+        container.innerHTML = "<p>Chưa có đơn hàng</p>";
+        return;
+      }
+
       data.forEach(order => {
         container.innerHTML += `
           <div class="card">
             <p><b>Tên:</b> ${order.name}</p>
             <p><b>Trạng thái:</b> ${order.status}</p>
-            ${order.status === "pending" ? 
-              `<button onclick="approve(${order.id})">Duyệt</button>` 
-              : ""}
+            ${
+              order.status === "pending"
+              ? `<button onclick="approve(${order.id})">Duyệt</button>`
+              : `<p style="color:green;"><b>Đã duyệt</b></p>`
+            }
           </div>
         `;
       });
+    })
+    .catch(() => {
+      document.getElementById("orders").innerHTML =
+        "<p style='color:red;'>Không kết nối được server</p>";
     });
 }
 
 function approve(id) {
   fetch(BACKEND + "/approve-order", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({ id })
   })
+  .then(res => res.json())
   .then(() => loadOrders());
+}
+
+function logout() {
+  window.location.href = "admin-login.html";
 }
 
 loadOrders();
 
 </script>
+
 </body>
 </html>
