@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Mua hàng</title>
+</head>
+<body style="text-align:center; padding-top:50px;">
+
+<h2>Mua Locket Gold</h2>
+
+<input id="name" placeholder="Tên của bạn">
+<br><br>
+
+<button onclick="createOrder()">Mua</button>
+<br><br>
+<button onclick="checkStatus()">Kiểm tra trạng thái</button>
+
+<p id="result"></p>
+
+<script>
+const BACKEND = "https://chumchum-backend-2.onrender.com";
+
+function createOrder() {
+  const name = document.getElementById("name").value;
+
+  fetch(BACKEND + "/create-order", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name })
+  })
+  .then(res => res.json())
+  .then(data => {
+    localStorage.setItem("orderId", data.id);
+    document.getElementById("result").innerText = "Đã tạo đơn. Chờ admin duyệt.";
+  });
+}
+
+function checkStatus() {
+  const id = localStorage.getItem("orderId");
+  if (!id) {
+    document.getElementById("result").innerText = "Chưa có đơn.";
+    return;
+  }
+
+  fetch(BACKEND + "/order-status/" + id)
+  .then(res => res.json())
+  .then(data => {
+    if (!data.success) {
+      document.getElementById("result").innerText = "Không tìm thấy đơn.";
+      return;
+    }
+
+    document.getElementById("result").innerText =
+      "Trạng thái: " + data.status;
+  });
+}
+</script>
+
+</body>
+</html>
