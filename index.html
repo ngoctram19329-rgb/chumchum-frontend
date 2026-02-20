@@ -241,8 +241,11 @@ function generateOrderId() {
 function showForm(product, price) {
   selectedProduct = product;
   selectedPrice = price;
-  document.getElementById("orderForm").style.display = "block";
-  window.scrollTo(0, document.body.scrollHeight);
+
+  const form = document.getElementById("orderForm");
+
+  event.target.parentElement.appendChild(form);
+  form.style.display = "block";
 }
 
   function submitOrder() {
