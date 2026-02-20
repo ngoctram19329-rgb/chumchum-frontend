@@ -2,47 +2,137 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Admin</title>
-</head>
-<body style="font-family:Arial;padding:30px;">
+<title>Admin - LocketGold Chum</title>
 
-<h2>Danh sách đơn hàng</h2>
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background:#f4f6f9;
+  margin:0;
+  padding:20px;
+}
+
+.header{
+  background:#111;
+  color:white;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:20px;
+}
+
+h2{
+  margin:0;
+}
+
+.card{
+  background:white;
+  padding:15px;
+  margin-bottom:15px;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.status{
+  font-weight:bold;
+}
+
+.pending{
+  color:orange;
+}
+
+.approved{
+  color:green;
+}
+
+button{
+  padding:8px 12px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  margin-top:8px;
+}
+
+.btn-approve{
+  background:#28a745;
+  color:white;
+}
+
+.btn-delete{
+  background:#dc3545;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h2>Quản lý đơn hàng - LocketGold Chum</h2>
+</div>
+
 <div id="orders"></div>
 
 <script>
 const BACKEND = "https://chumchum-backend-2.onrender.com";
 
-function loadOrders() {
+function loadOrders(){
   fetch(BACKEND + "/orders")
-  .then(res => res.json())
-  .then(data => {
+  .then(res=>res.json())
+  .then(data=>{
     const container = document.getElementById("orders");
     container.innerHTML = "";
 
-    data.forEach(order => {
-      container.innerHTML += `
-        <div style="border:1px solid #ccc;padding:10px;margin-bottom:10px;">
-          <strong>ID:</strong> ${order.id}<br>
-          <strong>Tên:</strong> ${order.name}<br>
-          <strong>SĐT:</strong> ${order.phone}<br>
-          <strong>Sản phẩm:</strong> ${order.product}<br>
-          <strong>Giá:</strong> ${order.price}đ<br>
-          <strong>Trạng thái:</strong> ${order.status}<br>
-          ${order.status === "pending" ?
-            `<button onclick="approve(${order.id})">Duyệt</button>` : ""}
-        </div>
+    if(data.length === 0){
+      container.innerHTML = "<p>Chưa có đơn hàng nào.</p>";
+      return;
+    }
+
+    data.reverse().forEach(order=>{
+      const div = document.createElement("div");
+      div.className = "card";
+
+      div.innerHTML = `
+        <p><b>Mã đơn:</b> ${order.id}</p>
+        <p><b>Tên:</b> ${order.name}</p>
+        <p><b>SĐT:</b> ${order.phone}</p>
+        <p><b>Sản phẩm:</b> ${order.product}</p>
+        <p><b>Số tiền:</b> ${order.price.toLocaleString()}đ</p>
+        <p class="status ${order.status}">
+          Trạng thái: ${order.status === "approved" ? "Đã duyệt" : "Chờ duyệt"}
+        </p>
       `;
+
+      if(order.status !== "approved"){
+        const btn = document.createElement("button");
+        btn.innerText = "Duyệt đơn";
+        btn.className = "btn-approve";
+        btn.onclick = ()=> approveOrder(order.id);
+        div.appendChild(btn);
+      }
+
+      const del = document.createElement("button");
+      del.innerText = "Xoá";
+      del.className = "btn-delete";
+      del.onclick = ()=> deleteOrder(order.id);
+      div.appendChild(del);
+
+      container.appendChild(div);
     });
   });
 }
 
-function approve(id) {
-  fetch(BACKEND + "/approve-order/" + id, { method: "POST" })
-  .then(() => loadOrders());
+function approveOrder(id){
+  fetch(BACKEND + "/approve/" + id)
+  .then(()=> loadOrders());
+}
+
+function deleteOrder(id){
+  fetch(BACKEND + "/delete/" + id)
+  .then(()=> loadOrders());
 }
 
 loadOrders();
-setInterval(loadOrders, 5000);
+setInterval(loadOrders,5000);
 </script>
 
 </body>
