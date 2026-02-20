@@ -310,7 +310,26 @@ function checkStatus() {
   const id = localStorage.getItem("orderId");
   if (!id) return;
 
-  fetch(BACKEND + "/order-status/" + id)
+  function checkStatus() {
+  const id = localStorage.getItem("orderId");
+  if (!id) return;
+
+  fetch(BACKEND + "/status/" + id)
+  .then(res => res.json())
+  .then(data => {
+    if (!data.success) return;
+
+    if (data.status === "approved") {
+      document.getElementById("orderInfo").innerHTML +=
+        "<br><br><strong style='color:green;'>ĐƠN ĐÃ ĐƯỢC DUYỆT ✅</strong><br><br>" +
+        "<a href='https://zalo.me/0346658742' target='_blank'>" +
+        "<button style='background:green;color:white;padding:10px;border:none;border-radius:8px;'>Liên hệ nhận hàng</button></a>";
+
+      clearInterval(interval);
+      localStorage.removeItem("orderId");
+    }
+  });
+}
   .then(res => res.json())
   .then(data => {
     if (!data.success) return;
