@@ -71,24 +71,11 @@ function login() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  fetch("https://chumchum-frontend-1.onrender.com/admin-login.html", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ email, password })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success === true) {
-      window.location.href = "admin.html"; 
-    } else {
-      document.getElementById("message").innerText = "Sai gmail hoặc mật khẩu";
-    }
-  })
-  .catch(() => {
-    document.getElementById("message").innerText = "Không kết nối được server";
-  });
+  if (email === "chumchumcte193@gmail.com" && password === "19329") {
+    window.location.href = "admin.html";
+  } else {
+    document.getElementById("message").innerText = "Sai gmail hoặc mật khẩu";
+  }
 }
 </script>
 </body>
