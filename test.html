@@ -23,8 +23,11 @@ function send() {
   })
   .then(res => res.json())
   .then(data => {
+    const orderId = Date.now();
+    localStorage.setItem("orderId", orderId);
     alert("Đã gửi đơn!");
-  })
+  });
+}
   .catch(() => {
     alert("Lỗi kết nối server");
   });
