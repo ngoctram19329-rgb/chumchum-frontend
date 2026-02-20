@@ -152,25 +152,25 @@ input {
   <div class="card">
     <h2>Thuê id apple tải Shadowrocket</h2>
     <div class="price">10.000đ</div>
-    <button onclick="showForm('Thuê id apple tải Shadowrocket',10000,this)">Mua ngay</button>
+    <button onclick="showForm('Thuê id apple tải Shadowrocket',10000)">Mua ngay</button>
   </div>
 
   <div class="card">
     <h2>iOS - Bật VPN</h2>
     <div class="price">30.000đ</div>
-    <button onclick="showForm('iOS - Bật VPN',30000,this)">Mua ngay</button>
+    <button onclick="showForm('iOS - Bật VPN',30000)">Mua ngay</button>
   </div>
 
   <div class="card">
     <h2>iOS - Tắt VPN</h2>
     <div class="price">40.000đ</div>
-    <button onclick="showForm('iOS - Tắt VPN',40000,this)">Mua ngay</button>
+    <button onclick="showForm('iOS - Tắt VPN',40000)">Mua ngay</button>
   </div>
 
   <div class="card">
     <h2>Android</h2>
     <div class="price">20.000đ</div>
-    <button onclick="showForm('Android',20000,this)">Mua ngay</button>
+    <button onclick="showForm('Android',20000)">Mua ngay</button>
   </div>
 
 </div>
@@ -228,25 +228,18 @@ input {
 </div>
 
 <script>
-const BACKEND = "https://chumchum-backend-2.onrender.com";
-
 let selectedProduct = "";
 let selectedPrice = 0;
-let currentOrderId = null;
 
 function generateOrderId() {
   return "ORD" + Date.now();
 }
 
-function showForm(product, price, buttonElement) {
+function showForm(product, price) {
   selectedProduct = product;
   selectedPrice = price;
-
-  const form = document.getElementById("orderForm");
-  const card = buttonElement.closest(".card");
-
-  card.appendChild(form);
-  form.style.display = "block";
+  document.getElementById("orderForm").style.display = "block";
+  window.scrollTo(0, document.body.scrollHeight);
 }
 
 function submitOrder() {
@@ -265,51 +258,18 @@ function submitOrder() {
   }
 
   const orderId = generateOrderId();
-  currentOrderId = orderId;
+  const content = phone;
 
-  fetch(BACKEND + "/create", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      id: orderId,
-      name: name,
-      phone: phone,
-      product: selectedProduct,
-      price: selectedPrice
-    })
-  });
-
-  const qrUrl = `https://img.vietqr.io/image/momo-0346658742-compact.png?amount=${selectedPrice}&addInfo=${phone}`;
+  const qrUrl = `https://img.vietqr.io/image/momo-0346658742-compact.png?amount=${selectedPrice}&addInfo=${content}`;
 
   document.getElementById("qrImage").src = qrUrl;
   document.getElementById("qrBox").style.display = "block";
   document.getElementById("orderInfo").innerHTML =
     "Mã đơn: " + orderId + "<br>" +
     "Số tiền: " + selectedPrice.toLocaleString() + "đ<br>" +
-    "Nội dung: " + phone + "<br><br>" +
-    "Đang chờ admin duyệt...";
-
-  localStorage.setItem("orderId", orderId);
+    "Nội dung: " + content + "<br><br>" +
+    "Sau khi chuyển khoản xong, vui lòng đợi admin liên hệ.";
 }
-
-function checkOrderStatus() {
-  const savedId = localStorage.getItem("orderId");
-  if (!savedId) return;
-
-  fetch(BACKEND + "/check/" + savedId)
-  .then(res => res.json())
-  .then(data => {
-    if (data.status === "approved") {
-      document.getElementById("orderInfo").innerHTML +=
-        "<br><br><b style='color:green'>✔ Đơn đã được duyệt. Admin sẽ liên hệ ngay.</b>";
-      localStorage.removeItem("orderId");
-    }
-  });
-}
-
-setInterval(checkOrderStatus, 5000);
 </script>
 
 </body>
