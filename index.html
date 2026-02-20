@@ -1,285 +1,123 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Locket Gold Chum Chum</title>
+<title>Admin - LocketGold</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #fff9fb;
-  color: #333;
+body{
+  font-family: Arial;
+  background: linear-gradient(135deg,#fff0f6,#ffffff);
+  padding:20px;
 }
 
-.header {
-  text-align: center;
-  padding: 35px 15px;
-  background: linear-gradient(135deg, #fff, #fff0f6);
+.header{
+  background: linear-gradient(90deg,#ff66a3,#ffb84d);
+  color:white;
+  padding:18px;
+  border-radius:16px;
+  margin-bottom:25px;
+  text-align:center;
 }
 
-.header h1 {
-  margin: 0;
-  font-size: 30px;
-  color: #d4a017;
+.card{
+  background:white;
+  padding:18px;
+  margin-bottom:18px;
+  border-radius:18px;
+  border:1px solid #ffe0ec;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
 }
 
-.sub {
-  font-size: 14px;
-  color: #666;
-  margin-top: 8px;
+button{
+  padding:8px 14px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  margin-top:10px;
+  margin-right:6px;
+  font-weight:600;
 }
 
-.container {
-  padding: 20px;
+.approve{
+  background: linear-gradient(90deg,#ff66a3,#ffb84d);
+  color:white;
 }
 
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 14px;
-  margin-bottom: 18px;
-  box-shadow: 0 6px 15px rgba(233, 30, 99, 0.08);
-  border: 1px solid #ffe0ec;
-}
-
-.card h2 {
-  margin: 0 0 8px;
-  color: #d4a017;
-}
-
-.price {
-  font-size: 22px;
-  font-weight: bold;
-  color: #e91e63;
-  margin-bottom: 15px;
-}
-
-button {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #ff66a3, #d4a017);
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 15px;
-}
-
-button:hover { opacity: 0.9; }
-
-.order-form {
-  background: white;
-  margin: 20px;
-  padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 6px 15px rgba(233, 30, 99, 0.08);
-  display: none;
-  border: 1px solid #ffe0ec;
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 12px;
-  border-radius: 8px;
-  border: 1px solid #ffc1d6;
-  outline: none;
-}
-
-.qr-box {
-  text-align: center;
-  margin-top: 15px;
-}
-
-.qr-box img {
-  width: 200px;
-  margin-top: 10px;
-}
-
-.features {
-  background: white;
-  padding: 25px;
-  margin-top: 20px;
-  text-align: center;
-  border-top: 2px solid #ffe0ec;
-}
-
-.footer {
-  text-align: center;
-  padding: 20px;
-  color: #999;
-  font-size: 13px;
-}
-
-#menu {
-  display:none;
-  position:fixed;
-  top:50px;
-  left:15px;
-  background:#fff;
-  padding:15px;
-  border:1px solid #ccc;
+.delete{
+  background:#ffe6f0;
+  color:#ff4d88;
 }
 </style>
 </head>
 
 <body>
 
-<div style="position:fixed;top:15px;left:15px;z-index:999;">
-  <button onclick="toggleMenu()" 
-  style="font-size:24px;background:none;border:none;cursor:pointer;color:black;">
-  ☰
-  </button>
-</div>
-
-<div id="menu"
-     style="display:none;position:fixed;top:50px;left:15px;
-            background:#fff;padding:15px;border:1px solid #ccc;
-            border-radius:8px;">
-  <a href="admin-login.html"
-     style="text-decoration:none;color:#333;font-weight:bold;">
-    Đăng nhập Admin
-  </a>
-</div>
-
 <div class="header">
-  <h1>LocketGold ChumChum</h1>
-  <div class="sub">
-    Không iCloud • Bảo hành vĩnh viễn • Kích hoạt nhanh
-  </div>
+  <h2>Quản lý đơn hàng</h2>
 </div>
 
-<div class="features">
-  <h3 style="color:#d4a017;">Tính năng Locket Gold bao gồm:</h3>
-  <p>🚫 Không có quảng cáo</p>
-  <p>🎦 Quay Video ngắn</p>
-  <p>👀 Xem ai đã truy cập Locket của mình</p>
-  <p>🎞 Tải ảnh lên từ thư viện</p>
-  <p>👨‍👩‍👧 Thêm bạn bè không giới hạn</p>
-  <p>💛 Thay đổi biểu tượng ứng dụng</p>
-  <p>✏️ Ghi Caption dài hơn</p>
-</div>
-
-<div class="container">
-
-  <div class="card">
-    <h2>Android</h2>
-    <div class="price">20.000đ</div>
-    <button onclick="showForm('Android',20000,this)">Mua ngay</button>
-  </div>
-
-</div>
-
-<div class="order-form" id="orderForm">
-  <h3>Thông tin khách hàng</h3>
-  <input type="text" id="name" placeholder="Nhập tên của bạn">
-  <input type="text" id="phone" placeholder="Nhập số điện thoại (10 số)">
-  <button onclick="submitOrder()">Thanh toán</button>
-
-  <div class="qr-box" id="qrBox" style="display:none;">
-    <p><strong>Quét mã để thanh toán</strong></p>
-    <img id="qrImage" src="">
-    <p id="orderInfo"></p>
-  </div>
-</div>
-
-<div style="margin:20px;">
-  <a href="https://zalo.me/0346658742" target="_blank">
-    <button>Zalo</button>
-  </a>
-</div>
-
-<div style="margin:15px;">
-  <a href="https://www.tiktok.com/@_ngtr193" target="_blank">
-    <button>TikTok</button>
-  </a>
-</div>
-
-<div class="footer">
-  © Locket Gold | CHUM CHUM
-</div>
+<div id="orders"></div>
 
 <script>
 const BACKEND = "https://chumchum-backend-2.onrender.com";
 
-let selectedProduct = "";
-let selectedPrice = 0;
-let interval = null;
-
-function showForm(product, price, btn) {
-  selectedProduct = product;
-  selectedPrice = price;
-  const form = document.getElementById("orderForm");
-  btn.closest(".card").appendChild(form);
-  form.style.display = "block";
-}
-
-function submitOrder() {
-  const name = document.getElementById("name").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-
-  if (!name || !phone) {
-    alert("Vui lòng nhập đầy đủ thông tin.");
-    return;
-  }
-
-  fetch(BACKEND + "/create-order", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name, phone, product:selectedProduct, price:selectedPrice })
-  })
+function loadOrders(){
+  fetch(BACKEND + "/orders")
   .then(res => res.json())
   .then(data => {
-    localStorage.setItem("orderId", data.id);
+    const container = document.getElementById("orders");
+    container.innerHTML = "";
 
-    const qrUrl =
-      `https://img.vietqr.io/image/momo-0346658742-compact.png?amount=${selectedPrice}&addInfo=${phone}`;
-
-    document.getElementById("qrImage").src = qrUrl;
-    document.getElementById("qrBox").style.display = "block";
-    document.getElementById("orderInfo").innerHTML =
-      "Mã đơn: " + data.id + "<br>Đang chờ admin duyệt...";
-
-    startChecking();
-  })
-  .catch(() => alert("Không kết nối được server."));
-}
-
-function checkStatus() {
-  const id = localStorage.getItem("orderId");
-  if (!id) return;
-
-  fetch(BACKEND + "/status/" + id)
-  .then(res => res.json())
-  .then(data => {
-    if (data.status === "approved") {
-      clearInterval(interval);
-      localStorage.removeItem("orderId");
-
-      document.getElementById("orderInfo").innerHTML +=
-        "<br><br><strong style='color:green;'>ĐƠN ĐÃ ĐƯỢC DUYỆT ✅</strong>";
-
-      setTimeout(() => { location.reload(); }, 1000);
+    if(data.length === 0){
+      container.innerHTML = "<p>Chưa có đơn nào.</p>";
+      return;
     }
+
+    data.reverse().forEach(order => {
+
+      container.innerHTML += `
+        <div class="card">
+          <p><b>Mã:</b> ${order.id}</p>
+          <p><b>Tên:</b> ${order.name}</p>
+          <p><b>SĐT:</b> ${order.phone}</p>
+          <p><b>Sản phẩm:</b> ${order.product}</p>
+          <p><b>Giá:</b> ${order.price}đ</p>
+          <p><b>Trạng thái:</b> ${order.status}</p>
+
+          ${order.status === "pending" ?
+            `<button class="approve" onclick="approve('${order.id}')">Duyệt</button>`
+            : ""}
+
+          <button class="delete" onclick="removeOrder('${order.id}')">Xoá</button>
+        </div>
+      `;
+    });
   });
 }
 
-function startChecking() {
-  if (interval) clearInterval(interval);
-  interval = setInterval(checkStatus, 5000);
+function approve(id){
+  fetch(BACKEND + "/approve/" + id, {
+    method: "POST"
+  })
+  .then(res => res.json())
+  .then(data => {
+    loadOrders();
+  });
 }
 
-function toggleMenu(){
-  const menu = document.getElementById("menu");
-  menu.style.display = menu.style.display === "block" ? "none" : "block";
+function removeOrder(id){
+  fetch(BACKEND + "/delete/" + id, {
+    method: "POST"
+  })
+  .then(res => res.json())
+  .then(data => {
+    loadOrders();
+  });
 }
 
-if (localStorage.getItem("orderId")) {
-  startChecking();
-}
+loadOrders();
+setInterval(loadOrders, 5000);
 </script>
 
 </body>
