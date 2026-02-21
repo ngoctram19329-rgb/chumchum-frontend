@@ -302,6 +302,33 @@ body {
   <h3>Thông tin khách hàng</h3>
 
   <input type="text" id="phone" placeholder="Nhập số điện thoại (Zalo)">
+      <input type="text" id="ctvCode" placeholder="Nhập mã CTV (nếu có)" style="
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:10px;
+  border:1px solid #ffb6c1;
+">
+
+<button onclick="confirmOrder()" style="
+  width:100%;
+  margin-top:15px;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background: linear-gradient(45deg,#ff6a95,#ffb347);
+  color:white;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+">
+  Thanh toán
+</button>
+
+<div id="qrBox" style="display:none; margin-top:15px; text-align:center;">
+  <p id="orderText"></p>
+  <img id="qrImage" style="width:200px;">
+</div>
   <div id="phoneNote" class="phone-alert">
     <button onclick="submitOrder()">Thanh toán</button>
     ⚠ SĐT phải đang sử dụng Zalo để admin liên hệ xác nhận đơn.
@@ -506,6 +533,30 @@ function confirmPhone() {
 function resetPhone() {
   document.getElementById("confirmBox").style.display = "none";
   document.getElementById("phone").focus();
+}
+</script>
+  <script>
+function confirmOrder() {
+  const phone = document.querySelector("input[placeholder='Nhập số điện thoại (Zalo)']").value;
+  const ctv = document.getElementById("ctvCode").value;
+
+  if(phone === "") {
+    alert("Vui lòng nhập số điện thoại");
+    return;
+  }
+
+  const amount = 25000; 
+  const bank = "MB";
+  const stk = "YOUR_STK";
+  const name = "YOUR_NAME";
+
+  const content = `LOCKET ${phone} ${ctv}`;
+
+  const qr = `https://img.vietqr.io/image/${bank}-${stk}-compact.png?amount=${amount}&addInfo=${encodeURIComponent(content)}&accountName=${encodeURIComponent(name)}`;
+
+  document.getElementById("orderText").innerText = "Quét mã để thanh toán";
+  document.getElementById("qrImage").src = qr;
+  document.getElementById("qrBox").style.display = "block";
 }
 </script>
 </body>
