@@ -391,9 +391,9 @@ function generateOrderId() {
 
 function showForm(product, price) {
   selectedProduct = product;
-  selectedPrice = price;
+  selectedPrice = Number(price);   // ép chắc chắn là số
+
   const form = document.getElementById("orderForm");
-  event.target.parentElement.appendChild(form);
   form.style.display = "block";
 }
 
@@ -424,7 +424,7 @@ return;
   const orderId = generateOrderId();
   const content = phone + " " + ctvCode;
 
-  const qrUrl = `https://img.vietqr.io/image/momo-0346658742-compact.png?amount=${selectedPrice}&addInfo=${content}`;
+  const qrUrl = `https://img.vietqr.io/image/momo-0346658742-compact.png?amount=${Number(selectedPrice)}&addInfo=${content}`;
 
   document.getElementById("qrImage").src = qrUrl;
   document.getElementById("qrBox").style.display = "block";
