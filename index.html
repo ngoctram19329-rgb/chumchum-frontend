@@ -440,16 +440,18 @@ return;
   const phone = document.getElementById("phone").value.trim();
   let ctvCode = document.getElementById("ctvCode").value.trim().toUpperCase();
 
+  if (!ctvCode) ctvCode = "";
+
   const orderId = generateOrderId();
   const content = phone + " " + ctvCode;
 
-  const qrUrl = `https://img.vietqr.io/image/momo-0346658742-compact.png?amount=${selectedPrice}&addInfo=${content}`;
+  const qrUrl = `https://img.vietqr.io/image/momo-0346658742-compact.png?amount=${Number(selectedPrice)}&addInfo=${content}`;
 
   document.getElementById("qrImage").src = qrUrl;
   document.getElementById("qrBox").style.display = "block";
   document.getElementById("orderInfo").innerHTML =
     "Mã đơn: " + orderId + "<br>" +
-    "Số tiền: " + selectedPrice.toLocaleString() + "đ<br>" +
+    "Số tiền: " + Number(selectedPrice).toLocaleString() + "đ<br>" +
     "Nội dung: " + content + "<br><br>" +
     "Sau khi chuyển khoản xong, vui lòng đợi admin liên hệ.";
 }
