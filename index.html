@@ -302,7 +302,7 @@ body {
   <h3>Thông tin khách hàng</h3>
 
   <input type="text" id="phone" placeholder="Nhập số điện thoại (Zalo)">
-      <input type="text" id="ctvCode" placeholder="Nhập mã CTV (nếu có)" style="
+  <input type="text" id="ctvCode" placeholder="Mã CTV (nếu có)" style="margin-top:10px;">
   width:100%;
   padding:12px;
   margin-top:10px;
@@ -310,7 +310,7 @@ body {
   border:1px solid #ffb6c1;
 ">
 
-<button onclick="confirmOrder()" style="
+<button onclick="submitOrder()" style="
   width:100%;
   margin-top:15px;
   padding:14px;
@@ -323,10 +323,6 @@ body {
   cursor:pointer;
 ">
   Thanh toán
-  <div id="qrBox" class="qr-box" style="display:none;">
-  <p id="orderInfo"></p>
-  <img id="qrImage" src="">
-</div>
   <div id="phoneNote" class="phone-alert">
     <button onclick="submitOrder()">Thanh toán</button>
     ⚠ SĐT phải đang sử dụng Zalo để admin liên hệ.
@@ -338,16 +334,13 @@ body {
       ⚠ SĐT phải đang dùng Zalo để admin liên hệ. Bạn xác nhận đúng chưa?
     </p>
 
-    <button onclick="confirmPhone()" class="btn-ok">
       Xác nhận
     </button>
 
     <button onclick="resetPhone()" class="btn-back">
       Nhập lại
     </button>
-    <input type="text" id="ctvCode" placeholder="Mã CTV (nếu có)" style="margin-top:10px;">
 
-<div id="qrBox" class="qr-box" style="display:none;">
   <p id="orderInfo"></p>
   <img id="qrImage" src="">
 </div>
