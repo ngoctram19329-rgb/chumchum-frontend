@@ -7,7 +7,7 @@
 
 <style>
   @keyframes rainbowMove {
-   .rainbow-btn{
+.rainbow-btn{
   background:linear-gradient(
     90deg,
     red,
@@ -18,15 +18,14 @@
     blue,
     violet,
     red
-  );
-  background-size:300% 300%;
-  animation:rainbowMove 3s linear infinite;
+  ) !important;
+
+  background-size:400% 400% !important;
+  animation:rainbowMove 4s linear infinite;
+
   color:white !important;
   border:none !important;
-} 
-  0% {background-position:0% 50%;}
-  50% {background-position:100% 50%;}
-  100% {background-position:0% 50%;}
+  box-shadow:0 0 15px rgba(255,0,255,0.4);
 }
 body {
   margin: 0;
