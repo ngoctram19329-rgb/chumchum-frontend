@@ -290,11 +290,6 @@ body {
 
   <div class="card">
     <h2>Android</h2>
-    <div class="price">
-      <span class="old-price">39.000đ</span><br>
-      <span class="new-price">25.000đ</span>
-      <span class="sale-badge">SALE</span>
-    </div>
     <div class="order-form" id="orderForm">
   <h3>Thông tin khách hàng</h3>
 
@@ -302,19 +297,21 @@ body {
   <div id="phoneNote" class="phone-alert">
     ⚠ SĐT phải đang sử dụng Zalo để admin liên hệ xác nhận đơn.
   </div>
-<div id="confirmBox" class="confirm-mini">
-  <p style="margin-bottom:12px;font-weight:bold;">
-    ⚠ SĐT phải đang dùng Zalo để admin liên hệ. Bạn xác nhận đúng chưa?
-  </p>
 
-  <button onclick="confirmPhone()" class="btn-ok">
-  Xác nhận
-</button>
+  <div id="confirmBox" class="confirm-mini">
+    <p style="margin-bottom:12px;font-weight:bold;">
+      ⚠ SĐT phải đang dùng Zalo để admin liên hệ. Bạn xác nhận đúng chưa?
+    </p>
 
-<button onclick="resetPhone()" class="btn-back">
-  Nhập lại
-</button>
-</div>
+    <button onclick="confirmPhone()" class="btn-ok">
+      Xác nhận
+    </button>
+
+    <button onclick="resetPhone()" class="btn-back">
+      Nhập lại
+    </button>
+  </div>
+
   <input type="text" id="ctvCode" placeholder="Nhập mã CTV (nếu có)">
   <button onclick="submitOrder()">Thanh toán</button>
 
@@ -324,10 +321,12 @@ body {
     <p id="orderInfo"></p>
   </div>
 </div>
-    <button onclick="showForm('Android',25000)">Mua ngay</button>
-  </div>
+    <div class="price">
+      <span class="old-price">39.000đ</span><br>
+      <span class="new-price">25.000đ</span>
+      <span class="sale-badge">SALE</span>
+    </div>
 
-</div>
 
 <div style="
   padding:30px 20px;
