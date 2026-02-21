@@ -128,7 +128,39 @@ input {
   width: 200px;
   margin-top: 10px;
 }
+.confirm-mini{
+  display:none;
+  margin:15px auto;
+  padding:14px 12px;
+  width:85%;
+  max-width:280px;
+  background:#fff8dc;
+  border:2px solid #f2c94c;
+  border-radius:16px;
+  text-align:center;
+  font-size:14px;
+}
 
+.confirm-mini button{
+  width:100px;
+  padding:8px 0;
+  margin:6px auto;
+  border:none;
+  border-radius:10px;
+  font-size:14px;
+  cursor:pointer;
+  display:block;
+}
+
+.btn-ok{
+  background:#22c55e;
+  color:white;
+}
+
+.btn-back{
+  background:#ef4444;
+  color:white;
+}
 .footer {
   text-align: center;
   padding: 20px;
@@ -216,43 +248,18 @@ input {
   <div id="phoneNote" class="phone-alert">
     ⚠ SĐT phải đang sử dụng Zalo để admin liên hệ xác nhận đơn.
   </div>
-<div id="confirmBox" style="
-  display:none;
-  margin-bottom:12px;
-  padding:15px;
-  background:#fff3cd;
-  border:2px solid #ffcc00;
-  border-radius:12px;
-  text-align:center;
-">
+<div id="confirmBox" class="confirm-mini">
   <p style="margin-bottom:12px;font-weight:bold;">
     ⚠ SĐT phải đang dùng Zalo để admin liên hệ. Bạn xác nhận đúng chưa?
   </p>
 
-  <button onclick="confirmPhone()" style="
-    width:48%;
-    background:#28a745;
-    margin-right:2%;
-    border:none;
-    border-radius:8px;
-    padding:10px;
-    color:white;
-    font-weight:bold;
-  ">
-    Xác nhận
-  </button>
+  <button onclick="confirmPhone()" class="btn-ok">
+  Xác nhận
+</button>
 
-  <button onclick="resetPhone()" style="
-    width:48%;
-    background:#dc3545;
-    border:none;
-    border-radius:8px;
-    padding:10px;
-    color:white;
-    font-weight:bold;
-  ">
-    Nhập lại
-  </button>
+<button onclick="resetPhone()" class="btn-back">
+  Nhập lại
+</button>
 </div>
   <input type="text" id="ctvCode" placeholder="Nhập mã CTV (nếu có)">
   <button onclick="submitOrder()">Thanh toán</button>
