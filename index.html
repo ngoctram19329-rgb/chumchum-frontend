@@ -7,6 +7,23 @@
 
 <style>
   @keyframes rainbowMove {
+   .rainbow-btn{
+  background:linear-gradient(
+    90deg,
+    red,
+    orange,
+    yellow,
+    green,
+    cyan,
+    blue,
+    violet,
+    red
+  );
+  background-size:300% 300%;
+  animation:rainbowMove 3s linear infinite;
+  color:white !important;
+  border:none !important;
+} 
   0% {background-position:0% 50%;}
   50% {background-position:100% 50%;}
   100% {background-position:0% 50%;}
@@ -252,15 +269,12 @@ input {
     font-size:14px;
     margin-bottom:22px;
   ">
-    Đăng ký làm CTV hoặc xem feedback thực tế bên mình
+    UY TÍN TẠO NÊN THƯƠNG HIỆU
   </p>
 
   <a href="https://zalo.me/0346658742" target="_blank">
-    <button style="
+    <button class="rainbow-btn" style="
       width:100%;
-      background:linear-gradient(135deg,#4da3ff,#0d6efd);
-      color:white;
-      border:none;
       padding:13px;
       border-radius:14px;
       font-weight:bold;
